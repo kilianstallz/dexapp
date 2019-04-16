@@ -23,15 +23,15 @@ export default {
           id: 1,
           short: 'E',
           fullName: 'English',
-          todos: '2',
-          decks: '4'
+          todos: 2,
+          decks: 4
         },
         {
           id: 2,
           short: 'IE',
           fullName: 'Industrial Electronics',
-          todos: '1',
-          decks: '5'
+          todos: 1,
+          decks: 5
         }
       ]
     }

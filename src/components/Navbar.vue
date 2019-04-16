@@ -16,7 +16,7 @@ export default {
     return {
       leftItems: [
         { to: '/app', name: 'My Space' },
-        { to: '/app/about', name: 'About' }
+        { to: '/about', name: 'Browse' }
       ]
     }
   },

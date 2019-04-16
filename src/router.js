@@ -1,30 +1,40 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import store from './store'
+
+import Layout from './views/Layout.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '*',
-      redirect: '/'
+      redirect: '/auth'
     },
     {
-      path: '/',
+      path: '/auth',
+      name: 'Auth',
+      component: () => import(/* webpackChunkName: "auth" */ './views/Auth.vue')
+    },
+    {
+      path: '/app',
       name: 'home',
-      component: Home,
-      redirect: '/app',
+      component: Layout,
+      meta: {
+        requiresAuth: true,
+        onlyLoggedOut: false
+      },
       children: [
         {
-          path: '/app',
-          name: 'Landing',
-          component: () => import(/* webpackChunkName: "landing" */ './views/Dashboard.vue')
+          path: '/app/',
+          name: 'Dashboard',
+          component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')
         },
         {
-          path: '/app/about',
+          path: '/about',
           name: 'about',
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
         }
@@ -32,3 +42,30 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // TASK ADD Loading Spinner
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const onlyLoggedOut = to.matched.some(record => record.meta.onlyLoggedOut)
+  // TASK ADD Firebase user
+  const user = store.state.user.user
+  let version = 'full'
+  const nextRoute = to.fullPath || '/app'
+  if (window.innerWidth < 768) {
+    version = 'mobile'
+  }
+  if (requiresAuth && !user) {
+    return next({
+      path: '/auth',
+      query: { redirect: nextRoute, v: version }
+    })
+  }
+
+  if (user && onlyLoggedOut) {
+    return next({ path: '/', query: { v: version } })
+  }
+
+  next({ query: { v: version } })
+})
+
+export default router
