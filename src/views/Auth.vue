@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-row p.0 m-0" style="height: 100%; width: 100%">
+  <div v-if="isMobile" class="p-0 m-0 w-screen h-screen">
+    <mobile-login />
+  </div>
+  <div v-else class="flex flex-row p-0 m-0" style="height: 100%; width: 100%">
     <div class="flex flex-col justify-center align-middle text-center bg-blue-400 hidden md:flex" style="width: 50vw;">
       <p class="text-2xl text-white">Sign In Now!</p>
     </div>
@@ -18,6 +21,7 @@
 </template>
 
 <script>
+import mobileLogin from '../components/Auth/mobileLogin.vue'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Authentication',
@@ -27,7 +31,12 @@ export default {
         email: '',
         password: ''
       },
-      registerForm: {}
+      registerForm: {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: ''
+      }
     }
   },
   computed: {
@@ -54,6 +63,9 @@ export default {
         this.$router.push(this.nextRoute)
       }
     }
+  },
+  components: {
+    mobileLogin
   }
 }
 </script>
