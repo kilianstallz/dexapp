@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Sidebar from './components/Sidebar'
-import firebaseInit, { db } from './_imports/firebaseInit'
+import firebaseInit from './_imports/firebaseInit'
 import './registerServiceWorker'
 import './assets/tailwind.css'
 
@@ -16,7 +16,6 @@ function network () {
     if (process.env.NODE_ENV === 'production') {
       console.log('Slow network')
       console.log(type)
-      db.disableNetwork()
     }
   }
 }
