@@ -4,7 +4,8 @@ import Vue from 'vue'
  * and profile settings
  */
 const state = {
-  user: null
+  user: null,
+  userDoc: null
 }
 const getters = {
   user: state => state.user
@@ -13,6 +14,9 @@ const mutations = {
   'UPDATE_USER': (state, { user }) => {
     state.user = user
   },
+  'UPDATE_USER_DOC': (state, user) => {
+    state.userDoc = user
+  },
   LOGOUT: state => {
     state.user = null
   }
@@ -20,6 +24,13 @@ const mutations = {
 const actions = {
   updateUser: ({ commit }, user) => {
     commit('UPDATE_USER', { user })
+    const db = Vue.prototype.$firestore
+    const docRef = db.collection('user').doc(user.uid)
+    docRef.get().then(userDoc => {
+      if (userDoc.exists) {
+        commit('UPDATE_USER_DOC', userDoc.data())
+      }
+    })
   },
   logout: ({ commit }) => {
     Vue.prototype.$auth.logout()

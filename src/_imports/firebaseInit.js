@@ -30,11 +30,34 @@ export default {
     // Install to prototype
     Vue.prototype.$auth = {
       login: async (username, password) => {
-        await auth.signInWithEmailAndPassword(username, password)
-          .then(user => {
-            console.log(user)
-            return user
+        try {
+          const { user } = await auth.signInWithEmailAndPassword(username, password)
+          const docRef = db.collection('user')
+          const { uid, email } = user
+          // If user data is stored in database
+          if (docRef.doc(uid)) {
+            store.dispatch('user/updateUser', user)
+          } else {
+            const user = docRef.doc(uid).set({ uid, email })
+            store.dispatch('user/updateUser', user)
+          }
+        } catch (e) {
+          console.log(e)
+          throw e
+        }
+      },
+      signUp: async (dName, email, password) => {
+        try {
+          const { user } = await auth.createUserWithEmailAndPassword(email, password)
+          user.updateProfile({ displayName: dName }).then(() => {
+            console.log('User updated')
           })
+          const docRef = db.collection('user')
+          docRef.doc(user.uid).set({ uid: user.uid, displayName: dName, email })
+        } catch (e) {
+          console.log(e)
+          throw e
+        }
       },
       loginWithGoogle: async () => {
         const provider = new Firebase.auth.GoogleAuthProvider()
@@ -62,14 +85,14 @@ export default {
       }
     }
 
-    Vue.prototype.$firestore = {
-      db
-    }
+    Vue.prototype.$firestore = db
 
     // AUTH STATE CHECK
     auth.onAuthStateChanged(user => {
+      if (!store.state.loadingSpinner) store.commit('LOADING_SPINNER', true)
       store.dispatch('user/updateUser', user)
       if (!user) router.push('/auth')
+      store.commit('LOADING_SPINNER', false)
       // TASK LAODING SPINNER ACTION
       // TASK UPDATE USER ACTION
       // if (user) router.push('/')

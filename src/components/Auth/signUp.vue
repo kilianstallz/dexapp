@@ -1,8 +1,22 @@
 <template>
   <div class="h-full flex flex-col text-center justify-around align-middle w-64 mx-auto">
-    <h2 class="text-2xl text-gray-900">Dex Login</h2>
-    <form @submit.prevent="login" class="flex flex-col">
+    <h2 class="text-2xl text-gray-900">Sign Up for Dex</h2>
+    <form @submit.prevent="signUp" class="flex flex-col">
       <div class="bg-red-200 border-red-500 border-2 mb-1 py-4 text-center rounded-lg tracking-tight leading-tight text-red-900" style="font-size: 14px;" v-if="error">{{error}}</div>
+      <input
+        class="shadow p-2 rounded-lg my-1"
+        type="text"
+        placeholder="First Name"
+        v-model="firstName"
+        required
+      >
+      <input
+        class="shadow p-2 rounded-lg my-1"
+        type="text"
+        placeholder="Last Name"
+        v-model="lastName"
+        required
+      >
       <input
         class="shadow p-2 rounded-lg my-1"
         type="email"
@@ -17,10 +31,17 @@
         v-model="password"
         required
       >
+      <input
+        class="shadow p-2 rounded-lg my-1"
+        placeholder="Repeat password"
+        type="password"
+        v-model="passwordRep"
+        required
+      >
       <button
         type="submit"
         class="shadow bg-blue-600 p-2 rounded-lg text-white my-1 focus:border-gray-800 focus:shadow-lg"
-      >Sign In</button>
+      >Sign Up</button>
       <!-- GOOGLE Sign In -->
       <button
         @click="loginGoogle"
@@ -49,18 +70,26 @@ export default {
   data () {
     return {
       error: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      password: ''
+      password: '',
+      passwordRep: ''
     }
   },
   methods: {
-    checkForm () { },
-    async login () {
-      try {
-        await this.$auth.login(this.email, this.password)
-      } catch (e) {
-        if (e.code === 'auth/user-not-found') this.error = 'This user was not found! Try again...'
-        else this.error = e.message
+    checkForm () {
+      if (this.firstName && this.lastName && this.email && (this.password === this.passwordRep)) return true
+      else return false
+    },
+    async signUp () {
+      if (this.checkForm()) {
+        try {
+          await this.$auth.signUp(this.displayName, this.email, this.password)
+          await this.$auth.login(this.email, this.password)
+        } catch (e) {
+          this.error = e.message
+        }
       }
     },
     async loginGoogle () {
@@ -68,6 +97,11 @@ export default {
     },
     switchForm () {
       this.$emit('switch')
+    }
+  },
+  computed: {
+    displayName () {
+      return `${this.firstName} ${this.lastName}`
     }
   }
 }

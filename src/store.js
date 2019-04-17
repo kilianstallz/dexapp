@@ -25,7 +25,9 @@ export default new Vuex.Store({
     loadingSpinner: state => state.loadingSpinner
   },
   mutations: {
-
+    LOADING_SPINNER (state, bool) {
+      state.loadingSpinner = bool
+    }
   },
   actions: {
 

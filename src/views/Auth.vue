@@ -1,13 +1,13 @@
 <template>
   <div
-    v-if="isMobile"
+    v-if="isMobile && !loadingSpinner"
     class="p-0 m-0 w-screen h-screen"
   >
-    <mobileLogin />
+    <mobileLogin v-if="!signUp" @switch="signUp = !signUp" />
   </div>
   <!-- Desktop Auth -->
   <div
-    v-else
+    v-else-if="!isMobile && !loadingSpinner"
     class="flex flex-row p-0 m-0"
     style="height: 100%; width: 100%"
   >
@@ -15,51 +15,25 @@
       class="flex flex-col justify-center align-middle text-center bg-blue-400 hidden md:flex"
       style="width: 50vw;"
     >
-      <p class="text-2xl text-white">Sign In Now!</p>
+      <p class="text-2xl text-white">Welcome!</p>
     </div>
     <div class="flex flex-col justify-between flex-grow">
-      <header class="flex flex-row flex-wrap text-center bg-gray-200 p-2">
-        <form>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            class="my-1 w-56"
-          >
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            class="my-1 w-56"
-          >
-          <button class="rounded bg-blue-400 w-56 my-1">Log In</button>
-        </form>
-      </header>
-      <section class="flex flex-col"></section>
-      <footer class="flex flex-row"></footer>
+      <mobile-login v-if="!signUp" @switch="signUp = !signUp" />
+      <sign-up v-if="signUp" @switch="signUp = !signUp"/>
     </div>
   </div>
+  <div v-else>Loading</div>
 </template>
 
 <script>
 import mobileLogin from '../components/Auth/mobileLogin.vue'
+import signUp from '../components/Auth/signUp.vue'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Authentication',
   data () {
     return {
-      loginForm: {
-        email: '',
-        password: ''
-      },
-      registerForm: {
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: ''
-      }
+      signUp: false
     }
   },
   computed: {
@@ -69,7 +43,7 @@ export default {
       return this.$route.query.redirect || '/app'
     },
     isMobile () {
-      return window.innerWidth < 768
+      return window.innerWidth < 850
     }
   },
   methods: {
@@ -88,10 +62,25 @@ export default {
     }
   },
   components: {
-    mobileLogin
+    mobileLogin,
+    signUp
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+input {
+  border: 1px solid #d1d1d1;
+  height: 40px;
+  outline: none;
+
+  &:focus {
+    outline: none;
+    border: 1px solid cadetblue;
+  }
+}
+button {
+  height: 40px;
+  outline: none;
+}
 </style>

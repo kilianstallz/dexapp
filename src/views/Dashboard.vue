@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col text-center justify-center">
     <greeting />
-    <div class="band mt-6">
+    <div v-if="isLoading">Loading ...</div>
+    <div v-else class="band mt-6">
       <card v-for="card in entries" :cardId="card.id" :key="card.id" :short="card.short" :fullName="card.fullName" :nrOfTodos="card.todos" :nrOfDecks="card.decks" />
     </div>
   </div>
@@ -35,6 +36,15 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    isLoading () {
+      return this.$store.getters['loadingSpinner']
+    }
+  },
+  created () {
+    // TASK: Fetch Spaces
+    this.$store.commit('LOADING_SPINNER', false)
   }
 }
 </script>
@@ -57,6 +67,14 @@ export default {
 @media only screen and (min-width: 850px) {
   .band {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .band {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
   }
 }
 </style>

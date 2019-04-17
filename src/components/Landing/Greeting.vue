@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col text-center mt-12">
-    <h2 class="text-2xl">{{ `${greeting}, ${myName}!` }}</h2>
+    <h2 class="text-2xl">{{ `${greeting}${myName}!` }}</h2>
     <p class="text-gray-500">You have <span class="text-black font-bold">{{ undoneTodos }}</span> {{ undoneEnding }}</p>
   </div>
 </template>
@@ -15,8 +15,11 @@ export default {
   },
   computed: {
     myName () {
-      // TASK: Get Username from store
-      return 'Kilian'
+      let name = this.$store.getters['user/user'].displayName
+      if (name) {
+        let firstName = name.split(' ')
+        return `, ${firstName[0]}`
+      } else return ''
     },
     greeting () {
       if (this.time >= 20) return 'Good night'

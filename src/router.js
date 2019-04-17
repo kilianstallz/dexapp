@@ -45,10 +45,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // TASK ADD Loading Spinner
+  if (!store.state.loadingSpinner) store.commit('LOADING_SPINNER', true)
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const onlyLoggedOut = to.matched.some(record => record.meta.onlyLoggedOut)
-  // TASK ADD Firebase user
+  // Get user from store
   const user = store.state.user.user
+  // Get window size and do query string
   let version = 'full'
   const nextRoute = to.fullPath || '/app'
   if (window.innerWidth < 768) {
