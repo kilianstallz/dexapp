@@ -24,7 +24,7 @@ export default {
     greeting () {
       if (this.time >= 20) return 'Good night'
       else if (this.time >= 17) return 'Good evening'
-      else if (this.time >= 10) return 'Good day'
+      else if (this.time >= 10) return 'Welcome'
       else return 'Good morning'
     },
     undoneTodos () {
