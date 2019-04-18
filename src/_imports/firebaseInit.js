@@ -90,12 +90,9 @@ export default {
     // AUTH STATE CHECK
     auth.onAuthStateChanged(user => {
       if (!store.state.loadingSpinner) store.commit('LOADING_SPINNER', true)
-      store.dispatch('user/updateUser', user)
+      if (user) store.dispatch('user/updateUser', user)
       if (!user) router.push('/auth')
       store.commit('LOADING_SPINNER', false)
-      // TASK LAODING SPINNER ACTION
-      // TASK UPDATE USER ACTION
-      // if (user) router.push('/')
     })
   }
 }

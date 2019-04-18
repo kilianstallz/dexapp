@@ -5,8 +5,8 @@
 
     <div class="wrapper flex m-0">
       <side-bar />
-      <div id="right" class="column flex flex-col">
-        <Content @click="closeSidebar" />
+      <div id="right" @click="closeSidebar" class="column flex flex-col">
+        <Content />
       </div>
 
     </div>
@@ -64,7 +64,7 @@ export default {
   .home {
     height: 100vh;
     -webkit-app-region: drag;
-    background-color: rgb(240, 237, 237);
+    background-color: rgb(250, 249, 249);
     box-sizing: border-box;
 
     .wrapper {
@@ -76,9 +76,11 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
+        transition: all .15s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
       }
       #right {
         width: 100%;
+        transition: all .15s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
       }
     }
   }

@@ -4,9 +4,8 @@ workbox.precaching.suppressWarnings()
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
 
 var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
-var type = connection.effectiveType
 function updateConnectionStatus () {
-  console.log("Connection type changed from " + type + " to " + connection.type);
+  console.log("Connection type changed from " + type + " to " + connection);
 }
 
 connection.addEventListener('change', updateConnectionStatus)
