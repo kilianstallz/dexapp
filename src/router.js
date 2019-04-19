@@ -17,11 +17,15 @@ const router = new Router({
     {
       path: '/auth',
       name: 'Auth',
-      component: () => import(/* webpackChunkName: "auth" */ './views/Auth.vue')
+      component: () => import(/* webpackChunkName: "auth" */ './views/Auth.vue'),
+      meta: {
+        requiresAuth: false,
+        onlyLoggedOut: true
+      }
     },
     {
       path: '/app',
-      name: 'home',
+      name: 'App',
       component: Layout,
       meta: {
         requiresAuth: true,
@@ -32,6 +36,21 @@ const router = new Router({
           path: '/app/',
           name: 'Dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')
+        },
+        {
+          path: '/app/create/space',
+          name: 'createSpace',
+          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateSpace.vue`)
+        },
+        {
+          path: '/app/create/todo',
+          name: 'createTodo',
+          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateTodo.vue`)
+        },
+        {
+          path: '/app/create/deck',
+          name: 'createDeck',
+          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateDeck.vue`)
         },
         {
           path: '/about',

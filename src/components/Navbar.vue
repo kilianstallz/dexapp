@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar pl-4 pr-4">
-
-    <div v-if="showModal" class="modal-wrapper fixed left-0 top-0 bottom-0 right-0 w-screen h-screen overflow-auto" style="background: rgb(0,0,0); background: rgba(0,0,0,.4); z-index: 99999;">
-      <transition>
+    <!-- Modal For creating spaces, todos or decks -->
+    <transition>
+      <div v-if="showModal" class="modal-wrapper fixed left-0 top-0 bottom-0 right-0 w-screen h-screen overflow-auto" style="background: rgb(0,0,0); background: rgba(0,0,0,.4); z-index: 99999;">
         <div class="modal mx-auto p-4 w-64 bg-white flex flex-col text-center rounded-lg" style="margin-top: 33vh;">
 
           <div class="flex flex-row">
@@ -10,18 +10,18 @@
             <i class="far fa-window-close" @click="toggleModal(false)"></i>
           </div>
 
-          <div class="w-100 p-2 border border-gray-900 bg-gray-900 rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
-            <p class="text-white">Create a new space</p>
+          <div @click="toPage('/app/create/space')" class="w-100 p-2 border text-white border-gray-900 bg-gray-900 rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
+            <a>Create a new space</a>
           </div>
-          <div class="w-100 p-2 border border-orange-500 bg-orange-500 text-white rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
-            <p>Create a new todo</p>
+          <div @click="toPage('/app/create/todo')" class="w-100 p-2 border border-red-500 bg-red-500 text-white rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
+            <a>Create a new todo</a>
           </div>
-          <div class="w-100 p-2 border border-blue-500 bg-blue-500 text-white rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
-            <p>Create a new deck</p>
+          <div @click="toPage('/app/create/deck')" class="w-100 p-2 border border-blue-500 bg-blue-500 text-white rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
+            <a>Create a new deck</a>
           </div>
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
 
     <toggle-sidebar :status="status" @toggle="$emit('toggle')"/>
     <router-link v-for="item in leftItems" :key="item.to" :to="item.to" class="navbar-item flex-row align-middle">
@@ -51,6 +51,10 @@ export default {
   methods: {
     toggleModal (bool = true) {
       this.showModal = bool
+    },
+    toPage (page) {
+      this.$router.push(page)
+      this.toggleModal(false)
     }
   },
   props: {
@@ -80,6 +84,10 @@ export default {
   transition: all .15s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
   flex: 0 0 auto;
   border-bottom: unset;
+
+  .modal .router-link-active {
+    background-color: transparent;
+  }
 
   .spacer {
     display: flex;
