@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col text-center mt-12">
-    <h2 class="text-2xl">{{ `${greeting}${myName}!` }}</h2>
-    <p class="text-gray-500">You have <span class="text-black font-bold">{{ undoneTodos }}</span> {{ undoneEnding }}</p>
+    <h2 class="text-2xl font-black text-gray-800">{{ `${greeting}${myName}!` }}</h2>
+    <p class="text-gray-500 tracking-wide">You have <span class="text-black font-bold">{{ undoneTodos }}</span> {{ undoneEnding }}</p>
   </div>
 </template>
 
@@ -22,9 +22,8 @@ export default {
       } else return ''
     },
     greeting () {
-      if (this.time >= 20) return 'Good night'
-      else if (this.time >= 17) return 'Good evening'
-      else if (this.time >= 10) return 'Welcome'
+      if (this.time >= 18) return 'Good evening'
+      else if (this.time >= 12) return 'Good afternoon'
       else return 'Good morning'
     },
     undoneTodos () {

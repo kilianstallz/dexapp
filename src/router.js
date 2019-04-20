@@ -23,6 +23,7 @@ const router = new Router({
         onlyLoggedOut: true
       }
     },
+    // Dashboard / App Home screen
     {
       path: '/app',
       name: 'App',
@@ -31,6 +32,7 @@ const router = new Router({
         requiresAuth: true,
         onlyLoggedOut: false
       },
+      // Dashboard Pages (Navbar & Sidebar)
       children: [
         {
           path: '/app/',
@@ -38,26 +40,27 @@ const router = new Router({
           component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')
         },
         {
-          path: '/app/create/space',
-          name: 'createSpace',
-          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateSpace.vue`)
-        },
-        {
-          path: '/app/create/todo',
-          name: 'createTodo',
-          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateTodo.vue`)
-        },
-        {
-          path: '/app/create/deck',
-          name: 'createDeck',
-          component: () => import(/* webpackChunkName: "create" */ `./views/create/CreateDeck.vue`)
-        },
-        {
           path: '/about',
           name: 'about',
           component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
         }
       ]
+    },
+    // Full Page Routes
+    {
+      path: '/app/create/space',
+      name: 'createSpace',
+      component: () => import(/* webpackChunkName: "create" */ `./components/Create/CreateSpacePage.vue`)
+    },
+    {
+      path: '/app/create/todo',
+      name: 'createTodo',
+      component: () => import(/* webpackChunkName: "create" */ `./components/Create/CreateTodoPage.vue`)
+    },
+    {
+      path: '/app/create/deck',
+      name: 'createDeck',
+      component: () => import(/* webpackChunkName: "create" */ `./components/Create/CreateDeckPage.vue`)
     }
   ]
 })

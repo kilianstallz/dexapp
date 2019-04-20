@@ -7,7 +7,7 @@
 
           <div class="flex flex-row">
             <h1 class="font-black mb-4 pl-4 flex-grow">Create</h1>
-            <i class="far fa-window-close" @click="toggleModal(false)"></i>
+            <button-close @click.native="toggleModal(false)" />
           </div>
 
           <div @click="toPage('/app/create/space')" class="w-100 p-2 border text-white border-gray-900 bg-gray-900 rounded-lg shadow-sm hover:shadow-md mb-2 cursor-pointer">
@@ -37,6 +37,7 @@
 import ToggleSidebar from '../components/ToggleSidebar.vue'
 import CreateButton from '../components/CreateButton.vue'
 import ProfileButton from '../components/ProfileButton.vue'
+import buttonClose from './buttonClose.vue'
 export default {
   name: 'Navbar',
   data () {
@@ -63,7 +64,8 @@ export default {
   components: {
     ToggleSidebar,
     CreateButton,
-    ProfileButton
+    ProfileButton,
+    buttonClose
   }
 }
 </script>

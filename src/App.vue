@@ -29,5 +29,6 @@ export default {
   overflow: hidden;
   font-size: 16px;
   line-height: 1.5;
+  text-shadow: none;
 }
 </style>
