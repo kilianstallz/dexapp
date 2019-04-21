@@ -1,0 +1,40 @@
+[debug] [2019-04-21T11:21:20.920Z] ----------------------------------------------------------------------
+[debug] [2019-04-21T11:21:20.924Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mobil\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2019-04-21T11:21:20.925Z] CLI Version:   6.3.0
+[debug] [2019-04-21T11:21:20.925Z] Platform:      win32
+[debug] [2019-04-21T11:21:20.925Z] Node Version:  v11.6.0
+[debug] [2019-04-21T11:21:20.927Z] Time:          Sun Apr 21 2019 13:21:20 GMT+0200 (GMT+02:00)
+[debug] [2019-04-21T11:21:20.927Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-21T11:21:20.953Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-21T11:21:20.954Z] > authorizing via signed-in user
+[debug] [2019-04-21T11:21:20.954Z] [iam] checking project flashcards-5bcb1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-21T11:21:20.959Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/flashcards-5bcb1:testIamPermissions  
+
+[debug] [2019-04-21T11:21:22.518Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-21T11:21:22.521Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/flashcards-5bcb1  
+ 
+[debug] [2019-04-21T11:21:23.378Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-21T11:24:32.533Z] ----------------------------------------------------------------------
+[debug] [2019-04-21T11:24:32.538Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mobil\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2019-04-21T11:24:32.539Z] CLI Version:   6.3.0
+[debug] [2019-04-21T11:24:32.539Z] Platform:      win32
+[debug] [2019-04-21T11:24:32.539Z] Node Version:  v11.6.0
+[debug] [2019-04-21T11:24:32.542Z] Time:          Sun Apr 21 2019 13:24:32 GMT+0200 (GMT+02:00)
+[debug] [2019-04-21T11:24:32.542Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-21T11:24:32.568Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-21T11:24:32.570Z] > authorizing via signed-in user
+[debug] [2019-04-21T11:24:32.570Z] [iam] checking project flashcards-5bcb1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-21T11:24:32.579Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/flashcards-5bcb1:testIamPermissions  
+
+[debug] [2019-04-21T11:24:33.691Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-21T11:24:33.693Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/flashcards-5bcb1  
+ 
+[debug] [2019-04-21T11:24:34.172Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'flashcards-5bcb1'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-04-21T11:24:39.573Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/flashcards-5bcb1/versions  
+
