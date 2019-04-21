@@ -2,13 +2,26 @@
   <div class="flex flex-col text-center justify-center">
     <greeting />
     <div v-if="isLoading">Loading ...</div>
-    <div v-else class="band mt-6">
-      <card v-for="card in entries" :cardId="card.id" :key="card.id" :short="card.short" :fullName="card.fullName" :nrOfTodos="card.todos" :nrOfDecks="card.decks" />
+    <div
+      v-else
+      class="band mt-6"
+    >
+      <card
+        v-for="card in allStacks"
+        :cardId="card.id"
+        :key="card.id"
+        :short="card.short"
+        :fullName="card.name"
+        :nrOfTodos="card.todos || 0"
+        :nrOfDecks="card.decks || 0"
+        @click.native="openStack(card.id)"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Greeting from '@/components/Landing/Greeting.vue'
 import Card from '@/components/Card.vue'
 export default {
@@ -18,32 +31,22 @@ export default {
     Card
   },
   data () {
-    return {
-      entries: [
-        {
-          id: 1,
-          short: 'E',
-          fullName: 'English',
-          todos: 2,
-          decks: 4
-        },
-        {
-          id: 2,
-          short: 'IE',
-          fullName: 'Industrial Electronics',
-          todos: 1,
-          decks: 5
-        }
-      ]
-    }
+    return {}
   },
   computed: {
     isLoading () {
       return this.$store.getters['loadingSpinner']
+    },
+    ...mapGetters('data', ['allStacks'])
+  },
+  methods: {
+    openStack (id) {
+      this.$router.push('/app/stack/' + id)
     }
   },
   created () {
     // TASK: Fetch Spaces
+    this.$store.dispatch('data/fetchStacks')
     this.$store.commit('LOADING_SPINNER', false)
   }
 }

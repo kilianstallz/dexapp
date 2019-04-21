@@ -39,6 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 article {
-  transition: all .1s ease-in;
+  transition: all 0.1s ease-in;
 }
 </style>

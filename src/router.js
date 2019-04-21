@@ -12,7 +12,7 @@ const router = new Router({
   routes: [
     {
       path: '*',
-      redirect: '/auth'
+      redirect: '/app/'
     },
     {
       path: '/auth',
@@ -38,6 +38,11 @@ const router = new Router({
           path: '/app/',
           name: 'Dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')
+        },
+        {
+          path: '/app/stack/:id',
+          name: 'Stack',
+          component: () => import(/* webpackChunkName: "stack" */ './components/Stack/StackPage.vue')
         },
         {
           path: '/about',

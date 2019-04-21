@@ -1,29 +1,62 @@
 <template>
   <div class="wrapper">
-    <button-close @click.native="goBack" class="close-btn" />
+    <button-close
+      @click.native="goBack"
+      class="close-btn"
+    />
 
     <div class="form">
-      <form @submit.prevent="handleSumbit" class="form-inner flex flex-col flex-auto">
-        <h1 class="text-3xl font-black text-gray-800 tracking-tight mb-6">Create a new space</h1>
+      <form
+        @submit.prevent="handleSumbit"
+        class="form-inner flex flex-col flex-auto"
+      >
+        <h1 class="text-3xl font-black text-gray-800 tracking-tight mb-6">Create a new stack</h1>
 
         <div class="flex flex-col w-full mb-6">
-          <label class="text-gray-600 tracking-tight mb-2" style="font-size: 0.875rem; font-weight: 700;">
-            NAME YOUR SPACE
+          <label
+            class="text-gray-600 tracking-tight mb-2"
+            style="font-size: 0.875rem; font-weight: 700;"
+          >
+            NAME YOUR STACK
           </label>
-          <input v-model="fullName" type="text" placeholder="Like 'Applied Electronics'" class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4">
-          <p v-if="fullName.length > 24" style="font-size: 0.825rem;" class="lead-none text-red-500">max. 24 letters</p>
+          <input
+            v-model="fullName"
+            type="text"
+            placeholder="Like 'Applied Electronics'"
+            class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
+          >
+          <p
+            v-if="fullName.length > 24"
+            style="font-size: 0.825rem;"
+            class="lead-none text-red-500"
+          >max. 24 letters</p>
         </div>
 
         <div class="flex flex-col w-full mb-6">
-          <label class="text-gray-600 tracking-tight mb-2" style="font-size: 0.875rem; font-weight: 700;">
+          <label
+            class="text-gray-600 tracking-tight mb-2"
+            style="font-size: 0.875rem; font-weight: 700;"
+          >
             CHOOSE A SHORTHAND
           </label>
-          <input v-model="shortHand" type="text" placeholder="Like 'AE'" class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4">
-          <p v-if="shortHand.length > 8" style="font-size: 0.825rem;" class="lead-none text-red-500">max. 8 letters</p>
+          <input
+            v-model="shortHand"
+            type="text"
+            placeholder="Like 'AE'"
+            class="w-full text-xl text-gray-600 focus:text-gray-700 font-bold mr-4"
+          >
+          <p
+            v-if="shortHand.length > 8"
+            style="font-size: 0.825rem;"
+            class="lead-none text-red-500"
+          >max. 8 letters</p>
         </div>
 
         <div>
-          <button type="submit" class="rounded-lg text-white bg-blue-400 shadow-sm py-2 px-4 hover:shadow-lg">CREATE SPACE</button>
+          <button
+            type="submit"
+            class="rounded-lg text-white bg-blue-400 shadow-sm py-2 px-4 hover:shadow-lg"
+          >CREATE STACK</button>
         </div>
       </form>
     </div>
@@ -63,6 +96,9 @@ export default {
           const stackRef = await colRef.add({
             name: this.fullName,
             short: this.shortHand,
+            undoneTodos: 0,
+            todos: 0,
+            decks: 0,
             users: [user],
             creator: user
           })
