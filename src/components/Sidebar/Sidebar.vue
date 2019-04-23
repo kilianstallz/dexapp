@@ -2,7 +2,7 @@
   <transition>
     <div
       id="left"
-      class="column flex flex-col pt-4 pb-5"
+      class="column flex flex-col pt-0 pb-5"
       v-show="showSidebar"
     >
       <div class="m-0 p-0">
