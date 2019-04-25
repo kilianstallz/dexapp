@@ -8,9 +8,9 @@
       "type": "image/png"
     },
     {
-        "src": "img/icons/android-chrome-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
+      "src": "img/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     },
     {
       "src": "img/icons/icon-72x72.png",
@@ -55,6 +55,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff"
+  "background_color": "#faf9f9",
+  "theme_color": "#faf9f9"
 }

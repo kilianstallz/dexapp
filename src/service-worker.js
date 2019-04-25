@@ -4,11 +4,13 @@ workbox.precaching.suppressWarnings()
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
 
 var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
-function updateConnectionStatus () {
-  console.log("Connection type changed from " + type + " to " + connection);
+if (connection) {
+  function updateConnectionStatus () {
+    console.log("Connection type changed from " + type + " to " + connection);
+  }
+  connection.addEventListener('change', updateConnectionStatus)
 }
 
-connection.addEventListener('change', updateConnectionStatus)
 
 // install new sw then reload page
 self.addEventListener('message', msg => {
@@ -25,7 +27,7 @@ workbox.routing.registerRoute(
     plugins: [
       new workbox.expiration.Plugin({
         maxEntries: 30
-    }),
+      }),
       new workbox.cacheableResponse.Plugin({
         statuses: [0, 200]
       })
@@ -36,7 +38,7 @@ workbox.routing.registerRoute(
 // cache images
 workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.cacheFirst({
     cacheName: 'images',
     plugins: [
       new workbox.expiration.Plugin({
