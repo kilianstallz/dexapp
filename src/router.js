@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 
-import Layout from './views/Layout.vue'
-
 Vue.use(Router)
 
 const router = new Router({
@@ -27,7 +25,7 @@ const router = new Router({
     {
       path: '/app',
       name: 'App',
-      component: Layout,
+      component: () => import('./views/Layout.vue'),
       meta: {
         requiresAuth: true,
         onlyLoggedOut: false

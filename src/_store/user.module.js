@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import { db, auth } from '../_imports/firebaseInit'
+import router from '../router'
 /**
  * Module for auth state management, user specific data store
  * and profile settings
@@ -19,13 +20,13 @@ const mutations = {
   },
   LOGOUT: state => {
     state.user = null
+    state.userDoc = null
   }
 }
 const actions = {
   updateUser: ({ commit }, user) => {
     commit('UPDATE_USER', { user })
-    const db = Vue.prototype.$firestore
-    const docRef = db.collection('user').doc(user.uid)
+    const docRef = db.collection('users').doc(user.uid)
     docRef.get().then(userDoc => {
       if (userDoc.exists) {
         commit('UPDATE_USER_DOC', userDoc.data())
@@ -33,7 +34,8 @@ const actions = {
     })
   },
   logout: ({ commit }) => {
-    Vue.prototype.$auth.logout()
+    router.push('/auth')
+    auth.signOut()
     commit('LOGOUT')
   }
 }

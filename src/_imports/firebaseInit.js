@@ -32,13 +32,15 @@ export default {
       login: async (username, password) => {
         try {
           const { user } = await auth.signInWithEmailAndPassword(username, password)
-          const docRef = db.collection('user')
-          const { uid, email } = user
+          const { uid, email, displayName } = user // Get Elements for doc
+          const usersRef = await db.collection('users')
           // If user data is stored in database
-          if (docRef.doc(uid)) {
+          let userDoc = await usersRef.doc(uid).get() // Get user Document
+          if (userDoc.exists) { // Check its existance
             store.dispatch('user/updateUser', user)
           } else {
-            const user = docRef.doc(uid).set({ uid, email })
+            userDoc = await usersRef.doc(uid).set({ uid, email, displayName }) // Else overwrite with new doc
+              .then(() => console.log('User doc written'))
             store.dispatch('user/updateUser', user)
           }
         } catch (e) {
@@ -52,8 +54,8 @@ export default {
           user.updateProfile({ displayName: dName }).then(() => {
             console.log('User updated')
           })
-          const docRef = db.collection('user')
-          docRef.doc(user.uid).set({ uid: user.uid, displayName: dName, email })
+          db.collection('users').doc(user.uid).set({ uid: user.uid, displayName: dName, email })
+            .then(() => console.log('User doc written'))
         } catch (e) {
           console.log(e)
           throw e
@@ -63,22 +65,18 @@ export default {
         const provider = new Firebase.auth.GoogleAuthProvider()
         try {
           const { user } = await auth.signInWithPopup(provider)
-          const docRef = db.collection('user')
           const { uid, email, displayName } = user
+
+          const usersRef = await db.collection('users')
+          const userSnapshot = await usersRef.doc(uid).get()
           // If user data is stored in database
-          if (docRef.doc(uid)) {
+          if (userSnapshot.exists) {
             store.dispatch('user/updateUser', user)
           } else {
-            const user = docRef.doc(uid).set({ uid, email, displayName })
-            store.dispatch('user/updateUser', user)
+            const userDoc = await db.collection('users').doc(uid).set({ uid, email, displayName })
+              .then(() => { console.log('Doc written') })
+            store.dispatch('user/updateUser', userDoc)
           }
-        } catch (e) {
-          console.log(e)
-        }
-      },
-      logout: async () => {
-        try {
-          await auth.signOut()
         } catch (e) {
           console.log(e)
         }
