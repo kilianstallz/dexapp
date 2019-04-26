@@ -22,7 +22,7 @@ self.addEventListener('message', msg => {
 // precache fonts from google or gstatic
 workbox.routing.registerRoute(
   new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
-  workbox.strategies.cacheFirst({
+  workbox.strategies.CacheFirst({
     cacheName: 'google-fonts',
     plugins: [
       new workbox.expiration.Plugin({
