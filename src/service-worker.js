@@ -38,7 +38,7 @@ workbox.routing.registerRoute(
 // cache images
 workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
-  new workbox.strategies.cacheFirst({
+  new workbox.strategies.CacheFirst({
     cacheName: 'images',
     plugins: [
       new workbox.expiration.Plugin({
